@@ -1,0 +1,556 @@
+<html>
+ <head>
+  <title>
+   ATLAS Connect App
+  </title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <style>
+   body {
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 15px 0;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    nav {
+      background-color: #444;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      padding: 8px 0;
+    }
+    nav a {
+      color: #fff;
+      text-align: center;
+      padding: 10px 15px;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    nav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+    .container {
+      padding: 20px;
+      flex: 1;
+    }
+    .event {
+      background-color: #fff;
+      color: #000;
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      position: relative;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .event:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+    .event img {
+      max-width: 100%;
+      border-radius: 5px;
+    }
+    .event h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+    }
+    .event p {
+      margin: 10px 0;
+    }
+    .event a {
+      display: inline-block;
+      background-color: #28a745;
+      color: #fff;
+      padding: 8px 15px;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+    .event a:hover {
+      background-color: #218838;
+    }
+    .event .delete-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #dc3545;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      display: none;
+    }
+    .event .delete-btn:hover {
+      background-color: #c82333;
+    }
+    .login-page {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+    }
+    .login-form {
+      background-color: #fff;
+      color: #000;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 280px;
+    }
+    .login-form h2 {
+      margin-top: 0;
+      text-align: center;
+    }
+    .login-form input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .login-form button {
+      width: 100%;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .login-form button:hover {
+      background-color: #0056b3;
+    }
+    .admin-page {
+      background-color: #fff;
+      color: #000;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .admin-page h2 {
+      margin-top: 0;
+    }
+    .admin-page form {
+      display: flex;
+      flex-direction: column;
+    }
+    .admin-page form input, .admin-page form textarea, .admin-page form select {
+      margin-bottom: 10px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .admin-page form button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .admin-page form button:hover {
+      background-color: #0056b3;
+    }
+    .no-events {
+      text-align: center;
+      margin-top: 50px;
+    }
+    .no-events img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+    .hero {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 1rem;
+      margin-bottom: 30px;
+    }
+    .hero a {
+      background-color: #007bff;
+      color: #fff;
+      padding: 12px 25px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+    .hero a:hover {
+      background-color: #0056b3;
+    }
+    .features {
+      display: flex;
+      justify-content: space-around;
+      padding: 40px 20px;
+      background-color: #f8f9fa;
+      color: #000;
+    }
+    .feature {
+      text-align: center;
+      max-width: 250px;
+    }
+    .feature i {
+      font-size: 2.5rem;
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+    .feature h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+    .feature p {
+      font-size: 0.9rem;
+    }
+    .footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 15px 0;
+    }
+    .footer p {
+      margin: 0;
+    }
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+      nav a {
+        font-size: 0.9rem;
+        padding: 8px 10px;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero p {
+        font-size: 0.9rem;
+      }
+      .hero a {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+      .features {
+        flex-direction: column;
+        align-items: center;
+      }
+      .feature {
+        max-width: 100%;
+        margin-bottom: 20px;
+      }
+      .feature i {
+        font-size: 2rem;
+      }
+      .feature h3 {
+        font-size: 1.1rem;
+      }
+      .feature p {
+        font-size: 0.8rem;
+      }
+      .event h2 {
+        font-size: 1.1rem;
+      }
+      .event p {
+        font-size: 0.9rem;
+      }
+      .event a {
+        padding: 6px 10px;
+        font-size: 0.9rem;
+      }
+      .login-form {
+        width: 250px;
+      }
+      .login-form h2 {
+        font-size: 1.2rem;
+      }
+      .login-form input {
+        padding: 6px;
+      }
+      .login-form button {
+        padding: 8px;
+        font-size: 0.9rem;
+      }
+      .admin-page form input, .admin-page form textarea, .admin-page form select {
+        padding: 6px;
+      }
+      .admin-page form button {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+  <script>
+   document.addEventListener('DOMContentLoaded', function() {
+      const form = document.querySelector('.admin-page form');
+      const eventsContainer = document.getElementById('events');
+      const deleteEventSelect = document.getElementById('delete-event-select');
+      const noEventsMessage = document.getElementById('no-events-message');
+
+      form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const eventName = form.querySelector('input[placeholder="Event Name"]').value;
+        const eventDate = form.querySelector('input[placeholder="Event Date"]').value;
+        const eventLocation = form.querySelector('input[placeholder="Event Location"]').value;
+        const eventDescription = form.querySelector('textarea[placeholder="Event Description"]').value;
+        const eventFormLink = form.querySelector('input[placeholder="Google Form Link"]').value;
+        const eventImage = form.querySelector('input[placeholder="Event Image"]').files[0];
+        const eventClub = form.querySelector('input[placeholder="Organising Club"]').value;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const newEvent = document.createElement('div');
+          newEvent.classList.add('event');
+          newEvent.innerHTML = `
+            <img src="${e.target.result}" alt="Image for ${eventName}">
+            <h2>${eventName}</h2>
+            <p>Date: ${eventDate}</p>
+            <p>Location: ${eventLocation}</p>
+            <p>Organising Club: ${eventClub}</p>
+            <p>Description: ${eventDescription}</p>
+            <a href="${eventFormLink}" target="_blank">Register</a>
+            <button class="delete-btn" onclick="deleteEvent(this)">Delete</button>
+          `;
+
+          eventsContainer.appendChild(newEvent);
+
+          const option = document.createElement('option');
+          option.value = eventName;
+          option.textContent = eventName;
+          deleteEventSelect.appendChild(option);
+
+          noEventsMessage.style.display = 'none';
+        };
+        reader.readAsDataURL(eventImage);
+
+        form.reset();
+      });
+
+      document.getElementById('delete-event-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const eventNameToDelete = deleteEventSelect.value;
+        const events = document.querySelectorAll('.event');
+        events.forEach(event => {
+          if (event.querySelector('h2').textContent === eventNameToDelete) {
+            event.remove();
+            const optionToRemove = deleteEventSelect.querySelector(`option[value="${eventNameToDelete}"]`);
+            optionToRemove.remove();
+          }
+        });
+
+        if (eventsContainer.children.length === 0) {
+          noEventsMessage.style.display = 'block';
+        }
+      });
+    });
+
+    function handleAdminLogin(event) {
+      event.preventDefault();
+      const username = event.target.querySelector('input[placeholder="Username"]').value;
+      const password = event.target.querySelector('input[placeholder="Password"]').value;
+
+      if (username === '123' && password === '456') {
+        document.getElementById('admin-login').style.display = 'none';
+        document.getElementById('admin').style.display = 'block';
+        showDeleteButtons(true);
+      } else {
+        alert('Invalid login credentials');
+      }
+    }
+
+    function deleteEvent(button) {
+      const eventElement = button.parentElement;
+      eventElement.remove();
+    }
+
+    function showEvents() {
+      document.getElementById('hero').style.display = 'none';
+      document.getElementById('features').style.display = 'none';
+      document.getElementById('admin').style.display = 'none';
+      document.getElementById('admin-login').style.display = 'none';
+      document.getElementById('events').style.display = 'block';
+      showDeleteButtons(false);
+      clearAdminLogin();
+    }
+
+    function showAdminLogin() {
+      document.getElementById('hero').style.display = 'none';
+      document.getElementById('features').style.display = 'none';
+      document.getElementById('admin-login').style.display = 'flex';
+      document.getElementById('events').style.display = 'none';
+    }
+
+    function showDeleteButtons(show) {
+      const deleteButtons = document.querySelectorAll('.delete-btn');
+      deleteButtons.forEach(button => {
+        button.style.display = show ? 'block' : 'none';
+      });
+    }
+
+    function clearAdminLogin() {
+      const adminLoginForm = document.querySelector('#admin-login form');
+      adminLoginForm.reset();
+    }
+
+    function showHome() {
+      document.getElementById('hero').style.display = 'block';
+      document.getElementById('features').style.display = 'block';
+      document.getElementById('admin').style.display = 'none';
+      document.getElementById('admin-login').style.display = 'none';
+      document.getElementById('events').style.display = 'none';
+    }
+  </script>
+ </head>
+ <body>
+  <header>
+   <h1>
+    ATLAS Connect App
+   </h1>
+   <img src="https://atlasskilltech.app/brand/updated/3_School_Logo/svg/ATLAS_Sleeping.svg" alt="ATLAS SkillTech University logo" class="mx-auto mt-4" width="150" height="150"/>
+  </header>
+  <nav>
+   <a href="#home" onclick="showHome()">
+    Home
+   </a>
+   <a href="#events" onclick="showEvents()">
+    Events
+   </a>
+   <a href="#admin-login" onclick="showAdminLogin()">
+    Admin Login
+   </a>
+  </nav>
+  <div class="hero" id="hero">
+   <h1>
+    Welcome to ATLAS Connect
+   </h1>
+   <p>
+    Your one-stop platform for all the latest events and activities.
+   </p>
+   <a href="#events" onclick="showEvents()">
+    Explore Events
+   </a>
+   <img alt="ATLAS INSOFE logo" class="mt-4 mx-auto" height="150" src="https://atlasuniversity.edu.in/brand/images/atlas-insofe.svg" width="150"/>
+  </div>
+  <div class="features" id="features">
+   <div class="feature">
+    <i class="fas fa-calendar-alt">
+    </i>
+    <h3>
+     Upcoming Events
+    </h3>
+    <p>
+     Stay updated with the latest events happening around you.
+    </p>
+   </div>
+   <div class="feature">
+    <i class="fas fa-users">
+    </i>
+    <h3>
+     Community Engagement
+    </h3>
+    <p>
+     Connect with like-minded individuals and grow your network.
+    </p>
+   </div>
+   <div class="feature">
+    <i class="fas fa-bullhorn">
+    </i>
+    <h3>
+     Announcements
+    </h3>
+    <p>
+     Get the latest announcements and updates from the organizers.
+    </p>
+   </div>
+  </div>
+  <div class="container" id="events" style="display: none;">
+   <div class="no-events" id="no-events-message">
+    <h2>
+     No Events Available
+    </h2>
+    <p>
+     Stay tuned for upcoming events!
+    </p>
+    <img alt="Illustration of people engaging in various activities and events" height="400" src="https://storage.googleapis.com/a1aa/image/6GntvnfDs12vWaBCdmzav4iBr2yXWemcSrezpNyoDJHkQ7onA.jpg" width="600"/>
+   </div>
+  </div>
+  <div class="login-page" id="admin-login" style="display: none;">
+   <div class="login-form">
+    <h2>
+     Admin Login
+    </h2>
+    <form onsubmit="handleAdminLogin(event)">
+     <input placeholder="Username" required="" type="text"/>
+     <input placeholder="Password" required="" type="password"/>
+     <button type="submit">
+      Login
+     </button>
+    </form>
+   </div>
+  </div>
+  <div class="container" id="admin" style="display: none;">
+   <div class="admin-page">
+    <h2>
+     Admin Page
+    </h2>
+    <form>
+     <input placeholder="Event Name" required="" type="text"/>
+     <input placeholder="Event Date" required="" type="date"/>
+     <input placeholder="Event Location" required="" type="text"/>
+     <input placeholder="Organising Club" required="" type="text"/>
+     <textarea placeholder="Event Description" required=""></textarea>
+     <input placeholder="Google Form Link" required="" type="url"/>
+     <input accept="image/*" placeholder="Event Image" required="" type="file"/>
+     <button type="submit">
+      Add Event
+     </button>
+    </form>
+    <h2>
+     Delete Event
+    </h2>
+    <form id="delete-event-form">
+     <select id="delete-event-select" required="">
+      <option disabled="" selected="" value="">
+       Select Event to Delete
+      </option>
+     </select>
+     <button type="submit">
+      Delete Event
+     </button>
+    </form>
+   </div>
+  </div>
+  <footer class="footer">
+   <p>
+    © 2024 ATLAS Connect. All rights reserved Anamay Joshi.
+   </p>
+  </footer
